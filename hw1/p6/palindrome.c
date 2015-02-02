@@ -14,7 +14,7 @@
 	#define WORKERS MAXWORKERS
 #endif
 #define WORDS 26000
-#define STRIP 10
+#define STRIP 100
 
 int words[WORDS], numWords, palindromesOffset = 0, totalPalindromes = 0;
 char *buffer;
@@ -95,19 +95,14 @@ char *strrev(char *);
 void write_palindromes(const char*);
 void incr_pali(void);
 
-
 void worker(void *arg) {
 	int start, end, match, numPalindromes, offset;
 	long myid = (long) arg;
 	char buf[30];
 	char res[5000];
-
-
 	while(1) {
 		bag(&start,&end);
-		
 		if(start==-1) break;
-
 		while(start<=end) {
 			strcpy(buf, buffer + words[start]);	
 			strrev(buf);
@@ -121,7 +116,6 @@ void worker(void *arg) {
 			}
 			start++;
 		}
-
 	}
 	res[offset]='\0';
 	write_palindromes((const char *) &res);
@@ -139,48 +133,26 @@ int main(int argc, char *argv[]) {
 
 	file = fopen("words","r");
 	of = fopen("output", "w");
-
 	if(!file) {
 		fprintf(stderr, "no such file\n");
 		exit(1);
 	}
-
 	fseek(file, 0L, SEEK_END);
 	numbytes = ftell(file);
-
-/* reset the file position indicator to 
-the beginning of the file */
 	fseek(file, 0L, SEEK_SET);	
-
-/* grab sufficient memory for the 
-buffer to hold the text */
 	buffer = (char*)calloc(numbytes, sizeof(char));	
 
-/* memory error */
-	if(buffer == NULL) {
-		fprintf(stderr, "could not allocate memory for buffer\n");
-		exit(1);
-	}
-
-/* copy all the text into the buffer */
 	fread(buffer, sizeof(char), numbytes, file);
 	fclose(file);
 
-/* confirm we have read the file by
-outputing it to the console */
-	//printf("The file called test.dat contains this text\n\n%s", buffer);
-
 	numWords=0;
 	wordstart=0;
-	for(i = 0; i < numbytes; i++) {
-		//buffer[i] = tolower(buffer[i]);
+	for(i = 0; i < numbytes; i++)
 		if(buffer[i]=='\n') {
 			buffer[i]='\0';
 			words[numWords++] = wordstart;
 			wordstart = i+1;
 		}
-	}
-
 	numWorkers = WORKERS > MAXWORKERS ? MAXWORKERS : WORKERS;
 	pthread_attr_init(&attr);
   	pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
@@ -192,21 +164,11 @@ outputing it to the console */
   	start_time = read_timer();
   	for (l = 0; l < numWorkers; l++)
     	pthread_create(&workerid[l], &attr, (void *)&worker, (void *) l);
-    for (l = 0; l < numWorkers; l++)
+   	for (l = 0; l < numWorkers; l++)
        pthread_join(workerid[l], NULL);
-   end_time = read_timer();
-   printf("Total palindromes found: %d\n",totalPalindromes);
-    printf("The execution time was %g sec\n", end_time - start_time);
-   fclose(file);
-   fclose(of);
-
-
-
-
-
-
-/* free the memory we used for the buffer */
+   	end_time = read_timer();
+  	printf("Total palindromes found: %d\n",totalPalindromes);
+   	printf("The execution time was %g sec\n", end_time - start_time);
+   	fclose(of);
 	free(buffer);
-
-
 }
