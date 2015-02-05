@@ -62,13 +62,18 @@ int sums[MAXWORKERS]; /* partial sums */
 int matrix[MAXSIZE][MAXSIZE]; /* matrix */
 
 
-int current_row = 0;
-pthread_mutex_t bag_lock;
+/* MY CODE STARTS HERE */
 
+int current_row = 0; //variable for bag of tasks to keep track of the rows it has given away
+pthread_mutex_t bag_lock; //mutex lock to protect the bag of tasks. Initialized in main.
+void bag_of_tasks(int*); //function prototype
+
+/* Writes the next row to be handed out to the address specified by the argument pointer.
+If all rows have already been aquired by thread, bag_of_tasks writes -1 */
 void bag_of_tasks(int *ip) {
-  pthread_mutex_lock(&bag_lock);
-  *ip = (current_row == size) ? -1 : current_row++;
-  pthread_mutex_unlock(&bag_lock);
+  pthread_mutex_lock(&bag_lock); //locks the mutex
+  *ip = (current_row == size) ? -1 : current_row++; //gives task, or -1 if all tasks have been given
+  pthread_mutex_unlock(&bag_lock); //unlocks the mutex
 }
 
 void *Worker(void *);
@@ -126,12 +131,10 @@ int main(int argc, char *argv[]) {
 /* Each worker sums the values in one strip of the matrix.
    After a barrier, worker(0) computes and prints the total */
 
-void bag_of_tasks(int*);
-
 void *Worker(void *arg) {
   long myid = (long) arg;
   int total, i, j, first, last;
-  int my_row;
+  int my_row; //local variable to hold current row
 
 #ifdef DEBUG
   printf("worker %d (pthread id %d) has started\n", myid, pthread_self());
@@ -145,10 +148,10 @@ void *Worker(void *arg) {
   total = 0;
   
     while(1) {
-      bag_of_tasks(&my_row);
-      if(my_row == -1) break;
+      bag_of_tasks(&my_row); //obtain new task (a row)
+      if(my_row == -1) break; //if no more tasks, break
       for(j=0; j < size; j++)
-        total += matrix[my_row][j];
+        total += matrix[my_row][j]; //add the sum of all the elements in the current row to the variable total
     }
     
   sums[myid] = total;

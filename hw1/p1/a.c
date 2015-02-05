@@ -61,24 +61,29 @@ int size, stripSize;  /* assume size is multiple of numWorkers */
 int sums[MAXWORKERS]; /* partial sums */
 int matrix[MAXSIZE][MAXSIZE]; /* matrix */
 
+/* MY CODE STARTS HERE */
 #include <limits.h>
-pthread_mutex_t min_max;
+void set_min_max(int,int); //the function prototype
+pthread_mutex_t min_max; //mutex lock for critical section (the set_min_max-function). Initialized in main.
+/* variables named *_x or *_y store array indexes for min and max values, min and max store the actual values */
 int max_x=-1, max_y=-1, min_x=-1, min_y=-1, min=INT_MAX, max=INT_MIN;
 
+/* critical section */
 void set_min_max(int x, int y) {
-  pthread_mutex_lock(&min_max);
-  if(matrix[x][y] < min) {
-    min = matrix[x][y];
-    min_x = x;
+  pthread_mutex_lock(&min_max); //locking mutex
+  if(matrix[x][y] < min) { //if current value is strictly less than the current minimum
+    min = matrix[x][y]; //set new minimum
+    min_x = x; //update min indexes
     min_y = y;
   }
-  if(matrix[x][y] > max) {
-    max = matrix[x][y];
-    max_x = x;
+  if(matrix[x][y] > max) { //if current value is strictly greater than the current maximum
+    max = matrix[x][y]; //set new maximum
+    max_x = x; //update max indexes
     max_y = y;
   }
-  pthread_mutex_unlock(&min_max);
+  pthread_mutex_unlock(&min_max); //unlock mutex
 }
+
 
 void *Worker(void *);
 
@@ -95,7 +100,7 @@ int main(int argc, char *argv[]) {
   pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
 
   /* initialize mutex and condition variable */
-  pthread_mutex_init(&min_max, NULL);     /*INITIALIZING MY MUTEX*/
+  pthread_mutex_init(&min_max, NULL);     /*initializing my mutex*/
   pthread_mutex_init(&barrier, NULL);
   pthread_cond_init(&go, NULL);
 
@@ -113,9 +118,6 @@ int main(int argc, char *argv[]) {
           matrix[i][j] = /*1;*/rand()%99;
 	  }
   }
-
-  // matrix[MAXSIZE/2][MAXSIZE/2]=-7;
-  // matrix[MAXSIZE/4][MAXSIZE/4]=99;
 
   /* print the matrix */
 #ifdef DEBUG
@@ -137,8 +139,6 @@ int main(int argc, char *argv[]) {
 
 /* Each worker sums the values in one strip of the matrix.
    After a barrier, worker(0) computes and prints the total */
-
-void set_min_max(int,int);    /*!!!!!!!!!!!!!!!!!!!!!!*/
 
 void *Worker(void *arg) {
   long myid = (long) arg;

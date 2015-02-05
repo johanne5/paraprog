@@ -8,32 +8,40 @@
 #include <sys/time.h>
 #include <stdbool.h>
 
-
-#define MAXWORKERS 8
-#ifndef WORKERS
-	#define WORKERS MAXWORKERS
+#define MAXWORKERS 20
+#ifndef W
+	#define W MAXWORKERS
+#elif W > MAXWORKERS
+	#define W MAXWORKERS
 #endif
-#define WORDS 26000
-#define STRIP 100
+#define BATCHSIZE 100 //batch size for bag of tasks
 
-int words[WORDS], numWords, palindromesOffset = 0, totalPalindromes = 0;
-char *buffer;
-FILE *of;
-double start_time, end_time;
+/* function prototypes */
+void bag_of_tasks(int*, int*);
+int find_word(const char*);
+char *strrev(char *);
+void write_output_buffer(const char*);
+void increment_sum(void);
 
-char *strrev(char *str)
-{
-      char *p1, *p2;
+/*words = array for memory adress for each word in the buffer, numWords = number of words in the buffer,
+ sum = total number of palindromes, current_task is global storage for bag_of_tasks-function*/
+int *words, numWords, sum = 0, current_task = 0, outBuffer_offset =0; 
+char *inBuffer, *outBuffer; //buffer to read the input in to
+FILE *outFile;
+pthread_mutex_t write_lock, sum_lock, bag_lock; //mutex locks for shared variables and file writing
 
-      if (! str || ! *str)
-            return str;
-      for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2)
-      {
-            *p1 ^= *p2;
-            *p2 ^= *p1;
-            *p1 ^= *p2;
-      }
-      return str;
+/* strrev-function reverses the string pointed to by the parameter */
+char *strrev(char *str) {
+	char *p1, *p2;
+
+	if (! str || ! *str)
+		return str;
+	for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2) {
+		*p1 ^= *p2;
+		*p2 ^= *p1;
+		*p1 ^= *p2;
+	}
+	return str;
 }
 
 /* timer */
@@ -50,125 +58,111 @@ double read_timer() {
     return (end.tv_sec - start.tv_sec) + 1.0e-6 * (end.tv_usec - start.tv_usec);
 }
 
-
-pthread_mutex_t pali_lock;
-void write_palindromes(const char *p) {
-	pthread_mutex_lock(&pali_lock);
-	fprintf(of, "%s", (const char *)p);
-	pthread_mutex_unlock(&pali_lock);
+/*Writes string to output buffer*/
+void write_output_buffer(const char *p) {
+	pthread_mutex_lock(&write_lock); //locks mutex
+	strcpy(outBuffer + outBuffer_offset, p); //copies string to output buffer
+	outBuffer_offset+=strlen(p); //increments the buffer offset
+	outBuffer[outBuffer_offset++] = '\n'; //adds a newline and increments offset by 1
+	pthread_mutex_unlock(&write_lock); //unlocks mutex
+}
+/*Increments the shared sum variable*/
+void increment_sum() {
+	pthread_mutex_lock(&sum_lock); //locks mutex
+	sum++; //increments the sum
+	pthread_mutex_unlock(&sum_lock); //unlocks mutex
 }
 
-pthread_mutex_t tot_pali;
-void incr_pali() {
-	pthread_mutex_lock(&tot_pali);
-	totalPalindromes++;
-	pthread_mutex_unlock(&tot_pali);
-}
-
-pthread_mutex_t bag_lock;
-int current_word = 0;
-void bag(int *start, int *end) {
-	pthread_mutex_lock(&bag_lock);
-	if(current_word==numWords) *start = -1;
+/* Gives a range of tasks from a value start to a value end where end is at most the last word in the inBuffer */
+void bag_of_tasks(int *start, int *end) {
+	pthread_mutex_lock(&bag_lock); //locks the mutex
+	if(current_task==numWords) *start = -1; //if no more tasks, write -1
 	else {
-		*start = current_word;
-		*end = (current_word + STRIP -1 > numWords -1) ? numWords -1 : current_word + STRIP -1;
-		current_word = *end + 1;
+		*start = current_task; //else give a range of tasks
+		*end = (current_task + BATCHSIZE -1 > numWords -1) ? numWords -1 : current_task + BATCHSIZE -1;
+		current_task = *end + 1; //update offset to next task
 	}
-	pthread_mutex_unlock(&bag_lock);
+	pthread_mutex_unlock(&bag_lock); //unlock mutex
 	
 }
 
+/* Searches through the inBuffer for a match against the word provided as argument */
 int find_word(const char *w) {
-	int i, cmp;
-
-	for(i = 0; i < numWords; i++) {
-		cmp = strcasecmp(w, buffer + words[i]);
-		if(!cmp) return i;
-	}
-	return -1;
+	int i;
+	for(i = 0; i < numWords; i++)
+		if(!strcasecmp(w, inBuffer + words[i])) return i; //if word parameter matches current word, returns its index
+	return -1; // if no match return -1
 }
 
-void bag(int*, int*);
-int find_word(const char*);
-char *strrev(char *);
-void write_palindromes(const char*);
-void incr_pali(void);
-
 void worker(void *arg) {
-	int start, end, match, numPalindromes, offset;
+	int start=0, end, myPalindromes=0;
 	long myid = (long) arg;
-	char buf[30];
-	char res[5000];
+	char wordBuffer[30];
 	while(1) {
-		bag(&start,&end);
-		if(start==-1) break;
-		while(start<=end) {
-			strcpy(buf, buffer + words[start]);	
-			strrev(buf);
-			if(find_word(buf)>-1) {
-				incr_pali();
-				numPalindromes++;
-				strcpy(res + offset, buffer + words[start]);
-				offset+=strlen(buffer + words[start]);
-				res[offset] = '\n';
-				offset++;
+		bag_of_tasks(&start,&end); //aquire a range of tasks
+		if(start==-1) break; //if no more tasks, break
+		while(start<=end) { //while all tasks have not been done
+			strcpy(wordBuffer, inBuffer + words[start]); //copy word to small buffer
+			strrev(wordBuffer); //reverse the word
+			if( -1 != find_word(wordBuffer) ) { //search for reversed word in the largebuffer
+				increment_sum(); //if match increment sum
+				myPalindromes++; //increment threads private sum of palindromes
+				write_output_buffer(inBuffer + words[start]); //write the word to output buffer
 			}
 			start++;
 		}
-	}
-	res[offset]='\0';
-	write_palindromes((const char *) &res);
-	printf("Thread with ID %lu found %d palindromes\n", myid, numPalindromes);
+	}	
+	printf("Thread with ID %lu found %d palindromes\n", myid, myPalindromes); //when finished, print some info
 }
 
 int main(int argc, char *argv[]) {
-	
-	FILE *file;
-	long numbytes;
-	int index, i, wordstart, numWorkers;
-	long l; /* use long in case of a 64-bit system */
+	FILE *inFile;
+	long numBytes, l;
+	double start_time, end_time;
+	int i, j, wordstart;
  	pthread_attr_t attr;
-  	pthread_t workerid[MAXWORKERS];
+  	pthread_t workerid[W];
 
-	file = fopen("words","r");
-	of = fopen("output", "w");
-	if(!file) {
-		fprintf(stderr, "no such file\n");
+	inFile = fopen("words","r"); //open infile for reading
+	if(!inFile) {
+		fprintf(stderr, "Could not open file \"words\"\n");
 		exit(1);
 	}
-	fseek(file, 0L, SEEK_END);
-	numbytes = ftell(file);
-	fseek(file, 0L, SEEK_SET);	
-	buffer = (char*)calloc(numbytes, sizeof(char));	
+	outFile = fopen("output", "w"); //open outfile for writing
+	fseek(inFile, 0L, SEEK_END);
+	numBytes = ftell(inFile); //set numBytes to file size
+	fseek(inFile, 0L, SEEK_SET);	
+	inBuffer = (char*)calloc(numBytes, sizeof(char)); //allocate heap memory for inbuffer
+	outBuffer = (char*)calloc(numBytes, sizeof(char)); //allocate the same amount for outbuffer (perhaps excessive)
+	fread(inBuffer, sizeof(char), numBytes, inFile); //read input file to inbuffer
+	fclose(inFile); //close the input file for reading
 
-	fread(buffer, sizeof(char), numbytes, file);
-	fclose(file);
-
-	numWords=0;
-	wordstart=0;
-	for(i = 0; i < numbytes; i++)
-		if(buffer[i]=='\n') {
-			buffer[i]='\0';
-			words[numWords++] = wordstart;
+	for(i=0, numWords=0; i < numBytes; i++) //count the number of words
+		if('\n'==inBuffer[i])
+			numWords++;
+	words = malloc(sizeof(int) * numWords); //allocate appropriate amount of heap memory for words offset array
+	for(i = 0, j=0, wordstart=0; i < numBytes; i++) //assign each word its offset in the array
+		if(inBuffer[i]=='\n') {
+			inBuffer[i]='\0';
+			words[j++] = wordstart;
 			wordstart = i+1;
 		}
-	numWorkers = WORKERS > MAXWORKERS ? MAXWORKERS : WORKERS;
+	/* initiate threads and mutexes */
 	pthread_attr_init(&attr);
   	pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
-
   	pthread_mutex_init(&bag_lock, NULL);
-  	pthread_mutex_init(&pali_lock, NULL);
-  	pthread_mutex_init(&tot_pali, NULL);
-
-  	start_time = read_timer();
-  	for (l = 0; l < numWorkers; l++)
+  	pthread_mutex_init(&write_lock, NULL);
+  	pthread_mutex_init(&sum_lock, NULL);
+  	start_time = read_timer(); //read timer
+  	for (l = 0; l < W; l++)
     	pthread_create(&workerid[l], &attr, (void *)&worker, (void *) l);
-   	for (l = 0; l < numWorkers; l++)
+   	for (l = 0; l < W; l++) //wait for each thread to finish
        pthread_join(workerid[l], NULL);
-   	end_time = read_timer();
-  	printf("Total palindromes found: %d\n",totalPalindromes);
-   	printf("The execution time was %g sec\n", end_time - start_time);
-   	fclose(of);
-	free(buffer);
+   	end_time = read_timer(); //read timer
+   	outBuffer[outBuffer_offset]='\0'; //null-terminate the output buffer
+   	fprintf(outFile, "%s", (const char *)outBuffer); //write output buffer to output file
+   	fclose(outFile); free(inBuffer); free(outBuffer); free(words); //close output file and free memory
+   	/* print out info */
+  	printf("A total number of %d palindromes found by %d threads!\n",sum, W);
+   	printf("The execution time was %g sec\n", end_time - start_time);		
 }

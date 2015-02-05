@@ -6,7 +6,7 @@ endif
 
 #variables
 CC = gcc
-CFLAGS = $(DEBUG) $(WARNINGS)
+CFLAGS = $(DEBUG) $(WARNINGS) -DW=10 -Wall
 
 #files
 #DEPS = matrix.h
@@ -16,10 +16,6 @@ OBJECT_FILES = $(SOURCE_FILES:.c=.o)
 all: palindrome
 
 %: %.o
-	$(CC) -o $@ $^
-
-
-matrixSum: $(OBJECT_FILES)
 	$(CC) -o $@ $^
 
 %.o: %.c $(DEPS)

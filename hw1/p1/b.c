@@ -47,13 +47,17 @@ int size, stripSize;  /* assume size is multiple of numWorkers */
 int sums[MAXWORKERS]; /* partial sums */
 int matrix[MAXSIZE][MAXSIZE]; /* matrix */
 
-int sum = 0;
-pthread_mutex_t sum_lock;
 
+/* MY CODE STARTS HERE */
+int sum = 0; //global variable to hold the shared ackumulative sum
+pthread_mutex_t sum_lock; //mutex lock to protext the sum variable. Initialized in main
+void increment_sum(int); //function prototype
+
+/*increments sum by the number specified by the parameter */
 void increment_sum(int n) {
-  pthread_mutex_lock(&sum_lock);
-  sum+=n;
-  pthread_mutex_unlock(&sum_lock);
+  pthread_mutex_lock(&sum_lock); //locks the mutex
+  sum+=n; //increments sum by n
+  pthread_mutex_unlock(&sum_lock); //unlocks the mutex
 }
 
 void *Worker(void *);
@@ -102,21 +106,18 @@ int main(int argc, char *argv[]) {
   start_time = read_timer();
   for (l = 0; l < numWorkers; l++)
     pthread_create(&workerid[l], &attr, Worker, (void *) l);
-  //pthread_exit(NULL);
   for (l = 0; l < numWorkers; l++)
-       pthread_join(workerid[l], NULL);
+       pthread_join(workerid[l], NULL); //waits for all the created threads to finish
 
-  end_time = read_timer();
+  end_time = read_timer(); //reads the time
 
-  printf("The total is %d\n", sum);
-  printf("The execution time is %g sec\n", end_time - start_time);
+  printf("The total is %d\n", sum); //prints the sum
+  printf("The execution time is %g sec\n", end_time - start_time); //prints the execution time
   return 0;
 }
 
 /* Each worker sums the values in one strip of the matrix.
    After a barrier, worker(0) computes and prints the total */
-
-void increment_sum(int);
 
 void *Worker(void *arg) {
   long myid = (long) arg;
@@ -137,5 +138,5 @@ void *Worker(void *arg) {
   for (i = first; i <= last; i++)
     for (j = 0; j < size; j++)
       total += matrix[i][j];
-  increment_sum(total);
+  increment_sum(total); //call to incrememnt the shared global variable sum
 }

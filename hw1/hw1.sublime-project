@@ -1,0 +1,13 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "p1"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "p6"
+		}
+	]
+}
