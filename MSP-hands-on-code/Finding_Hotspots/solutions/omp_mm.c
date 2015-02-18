@@ -1,0 +1,169 @@
+/******************************************************************************
+ * FILE: omp_mm.c
+ * DESCRIPTION:  
+ *   OpenMp Example - Matrix Multiply - C Version
+ *   Demonstrates a matrix multiply using OpenMP. Threads share row iterations
+ *   according to a predefined chunk size.
+ * AUTHOR: Blaise Barney
+ * LAST REVISED: 06/28/05
+ ******************************************************************************/
+
+ /* MODIFIED BY: Ananya Muddukrishna (ananya@kth.se)
+  * ON: 15 August 2011
+  * DESCIPTION: Added various optimsations and timing information
+  */
+
+
+#include <omp.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define NRA 600                 /* number of rows in matrix A */
+#define NCA 600                /* number of columns in matrix A */
+#define NCB 600                  /* number of columns in matrix B */
+
+//#define DYNAMIC_SCHEDULE 1
+//#define FAST_SQRT 1
+
+// Quake3 fast inv square root
+// Source: Wikipedia->Topic:"Fast inverse square root"
+float Q_rsqrt( float number )
+{
+        long i;
+        float x2, y;
+        const float threehalfs = 1.5F;
+#pragma omp critical
+{
+        x2 = number * 0.5F;
+        y  = number;
+        i  = * ( long * ) &y;                       
+        i  = 0x5f3759df - ( i >> 1 );               
+        y  = * ( float * ) &i;
+        y  = y * ( threehalfs - ( x2 * y * y ) );  
+}
+ 
+        return y;
+}
+
+float fast_invsqrt(float num)
+{
+    return Q_rsqrt(num);
+}
+
+float slow_invsqrt(float num)
+{
+    return 1.0/sqrt(num);
+}
+
+int main (int argc, char *argv[]) 
+{
+    if(argc!=2)
+    {
+    printf("Usage: omp_mm num_threads\n");
+    exit(0);
+    }
+
+    int arg_num_threads = atoi(argv[1]); 
+    int tid, nthreads, i, j, k, chunk;
+    float  a[NRA][NCA],           /* matrix A to be multiplied */
+            b[NCA][NCB],           /* matrix B to be multiplied */
+            c[NRA][NCB];           /* result matrix C */
+
+    chunk = 10;                    /* set loop iteration chunk size */
+
+    double start = omp_get_wtime( );
+    /*** Spawn a parallel region explicitly scoping all variables ***/
+#pragma omp parallel shared(a,b,c,nthreads,chunk) private(tid,i,j,k) num_threads(arg_num_threads)
+    {
+        tid = omp_get_thread_num();
+        if (tid == 0)
+        {
+            nthreads = omp_get_num_threads();
+            printf("Starting matrix multiple example with %d threads\n",nthreads);
+            //printf("Initializing matrices...\n");
+        }
+        /*** Initialize matrices ***/
+#ifdef DYNAMIC_SCHEDULE
+#pragma omp for schedule (dynamic, chunk)
+#else
+#pragma omp for schedule (static, chunk) 
+#endif
+        for (i=0; i<NRA; i++)
+            for (j=0; j<NCA; j++)
+                a[i][j]= i*j;
+#ifdef DYNAMIC_SCHEDULE
+#pragma omp for schedule (dynamic, chunk)
+#else
+#pragma omp for schedule (static, chunk)
+#endif
+        for (i=0; i<NCA; i++)
+            for (j=0; j<NCB; j++)
+                b[i][j]= i*j;
+#ifdef DYNAMIC_SCHEDULE
+#pragma omp for schedule (dynamic, chunk)
+#else
+#pragma omp for schedule (static, chunk)
+#endif
+        for (i=0; i<NRA; i++)
+            for (j=0; j<NCB; j++)
+                c[i][j]= 0;
+
+        /*** Do matrix multiply sharing iterations on outer loop ***/
+        /*** Display who does which iterations for demonstration purposes ***/
+        //printf("Thread %d starting matrix multiply...\n",tid);
+#ifdef DYNAMIC_SCHEDULE
+#pragma omp for schedule (dynamic, chunk)
+#else
+#pragma omp for schedule (static, chunk)
+#endif
+        for (i=0; i<NRA; i++)    
+        {
+            //printf("Thread=%d did row=%d\n",tid,i);
+            for(j=0; j<NCB; j++)       
+                for (k=0; k<NCA; k++)
+                {
+                    float temp = a[i][k] * b[k][j];
+                    int l;
+                    // Repeated inverse sqroot of product
+#ifdef DYNAMIC_SCHEDULE
+//#pragma omp for schedule (dynamic, chunk)
+#else
+//#pragma omp for schedule (static, chunk)
+#endif
+                    for(l=0;l<10;l++) //FIXME: 10 = magic number!
+                    {
+                #ifdef FAST_SQRT
+                        //c[i][j] += fast_invsqrt(temp);
+                        long ii;
+                        float x2, y;
+                        const float threehalfs = 1.5F;
+                        x2 = temp * 0.5F;
+                        y  = temp;
+                        ii  = * ( long * ) &y;                       
+                        ii  = 0x5f3759df - ( ii >> 1 );               
+                        y  = * ( float * ) &ii;
+                        y  = y * ( threehalfs - ( x2 * y * y ) );  
+
+                        c[i][j] += y;
+                #else
+                        c[i][j] += slow_invsqrt(temp);
+                #endif
+                    }
+                }
+        }
+    }   /*** End of parallel region ***/
+    double end = omp_get_wtime();
+    /*** Print results ***/
+    /*printf("******************************************************\n");
+      printf("Result Matrix:\n");
+      for (i=0; i<NRA; i++)
+      {
+      for (j=0; j<NCB; j++) 
+      printf("%6.2f   ", c[i][j]);
+      printf("\n"); 
+      }
+      printf("******************************************************\n");*/
+    printf ("Computation time  = %.16g\n", end - start);
+
+    return 0;
+}

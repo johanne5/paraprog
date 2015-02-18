@@ -139,4 +139,5 @@ void *Worker(void *arg) {
     for (j = 0; j < size; j++)
       total += matrix[i][j];
   increment_sum(total); //call to incrememnt the shared global variable sum
+  return NULL;
 }

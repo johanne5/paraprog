@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <time.h>
+#include <sys/time.h>
+#include <math.h>
+#include <omp.h>
+
+
+#define Nthreads	48
+#define GrainSize      10000
+
+long long num_steps =  100000000;
+
+long _time (void)
+{
+  struct timeval t;
+
+  gettimeofday(&t,NULL);
+  return t.tv_sec*1000000+t.tv_usec;
+}
+
+double step;
+
+int main(int argc, char* argv[])
+{
+	unsigned long start, stop;
+	double x, pi, sum=0.0;
+	int i;
+	step = 1./(double)num_steps;
+	start = _time();
+	
+	#pragma omp parallel num_threads(Nthreads)
+	#pragma omp single
+	for (i=0; i<num_steps; i++)
+	{
+#pragma omp task shared(sum) private(x) firstprivate(i,step)
+	  {
+		x = (i + .5)*step;
+		#pragma omp atomic
+		sum += (4.0/(1.+ x*x));
+	  }
+	}
+#pragma omp taskwait
+	
+	pi = sum*step;
+	stop = _time();
+
+	printf("The value of PI is %15.12f\n",pi);
+	printf("The time to calculate PI was %f seconds\n",((double)(stop - start)/1000000.0));
+	return 0;
+}

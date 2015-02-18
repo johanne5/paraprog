@@ -1,0 +1,8 @@
+all:
+	icc recursive_cilk_solution.c -o recursive_cilk
+	#icc -openmp recursive_omp_solution.c -o recursive_omp
+	icc -tbb recursive_tbb_solution.cpp -o recursive_tbb
+
+
+clean:
+	rm -rf *.o

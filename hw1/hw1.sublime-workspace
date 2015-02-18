@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"out",
+				"outBuffer"
+			],
+			[
+				"ou",
+				"outBuffer"
+			],
+			[
+				"st",
+				"start"
+			],
+			[
+				"word",
+				"words"
+			],
+			[
+				"wr",
+				"write_output_file"
+			],
+			[
+				"num",
+				"numWords"
+			],
+			[
 				"inc",
 				"incr_pali"
 			],
@@ -14,10 +38,6 @@
 			[
 				"pth",
 				"pthread_mutex_lock"
-			],
-			[
-				"word",
-				"wordstart"
 			],
 			[
 				"fi",
@@ -42,10 +62,6 @@
 			[
 				"r",
 				"res"
-			],
-			[
-				"num",
-				"numWords"
 			],
 			[
 				"wor",
@@ -187,29 +203,17 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/MolDyn/forces.c",
-			"settings":
-			{
-				"buffer_size": 1622,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/make.def",
-			"settings":
-			{
-				"buffer_size": 193,
-				"line_ending": "Windows"
-			}
-		}
 	],
-	"build_system": "",
+	"build_system": "Packages/User/myC.sublime-build",
 	"command_palette":
 	{
-		"height": 267.0,
+		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
 			[
 				"inde",
 				"Indentation: Reindent Lines"
@@ -255,7 +259,7 @@
 	},
 	"console":
 	{
-		"height": 0.0,
+		"height": 126.0,
 		"history":
 		[
 		]
@@ -271,18 +275,24 @@
 	},
 	"expanded_folders":
 	[
+		"/Users/johannes/kth/paraprog/hw1/p1",
+		"/Users/johannes/kth/paraprog/hw1/p6"
 	],
 	"file_history":
 	[
-		"/Users/johannes/kth/paraprog/hw1/p6/palindrome.c",
-		"/Users/johannes/kth/paraprog/hw1/p1/b.c",
-		"/Users/johannes/kth/paraprog/hw1/p6/micke-output",
-		"/Users/johannes/kth/paraprog/hw1/p6/Makefile",
-		"/Users/johannes/kth/paraprog/hw1/p6/output",
-		"/Users/johannes/kth/paraprog/hw1/p1/c.c",
-		"/Users/johannes/kth/paraprog/hw1/p1/matrixSum.c",
-		"/Users/johannes/kth/paraprog/hw1/p1/Makefile",
 		"/Users/johannes/kth/paraprog/hw1/p1/a.c",
+		"/Users/johannes/Library/Application Support/Sublime Text 3/Packages/User/myC.sublime-build",
+		"/Users/johannes/kth/paraprog/hw1/p1/b.c",
+		"/Users/johannes/kth/paraprog/hw1/p1/.sublime-build",
+		"/Users/johannes/kth/paraprog/hw1/p1/Makefile",
+		"/Users/johannes/kth/paraprog/hw1/p6/Makefile",
+		"/Users/johannes/kth/paraprog/hw1/p6/palindrome.c",
+		"/Users/johannes/kth/paraprog/hw1/p1/c.c",
+		"/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/MolDyn/forces.c",
+		"/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/make.def",
+		"/Users/johannes/kth/paraprog/hw1/p6/micke-output",
+		"/Users/johannes/kth/paraprog/hw1/p6/output",
+		"/Users/johannes/kth/paraprog/hw1/p1/matrixSum.c",
 		"/Users/johannes/kth/paraprog/MakeFile",
 		"/Users/johannes/kth/os/malloc/quicksort.c",
 		"/Users/johannes/kth/os/malloc/Makefile",
@@ -324,9 +334,29 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"write_output_file",
+			"buf",
+			"buffer",
+			"current_word",
+			"bag",
+			"incr_pali",
+			"write_palindromes",
+			"pali_lock",
+			"totalPalindromes_lock",
+			"totalPalindromes",
+			"tot_pali",
+			"infile",
+			"file",
+			"palindromesOffset",
+			"numPalindromes",
+			"offset",
+			"STRIP",
+			"numbytes",
+			"numWorkers",
+			"WORKERS",
 			"wed",
 			"no",
 			"wed",
@@ -356,73 +386,14 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": false,
+		"whole_word": true,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/MolDyn/forces.c",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1622,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								231,
-								231
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C Improved/C Improved.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 101.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/make.def",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 193,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								65,
-								65
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -459,7 +430,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 235.0
+		"height": 155.0
 	},
 	"output.find_results":
 	{
@@ -481,11 +452,15 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"selected_items":
 		[
+			[
+				"",
+				"~/kth/paraprog/hw2/hw2.sublime-project"
+			]
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{

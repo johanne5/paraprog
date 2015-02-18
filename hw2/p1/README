@@ -1,0 +1,14 @@
+This is a program that concurrently calculates the sum of a matrix
+
+Running make compiles a_omp.c b_omp.c and c_omp.c
+The files compile with gcc 4.9.
+
+c_omp.c is the solution to problem a) b)
+
+Running the shellscript speedup.sh prints a table with speedup for different number of threads and different matrix sizes.
+An example of print out can be found in the file speedup_output_example.
+*The script runs c_omp 5 times sequentially and takes the median execution time of the parallel section. This is repeated for each new size.
+*The script then runs c_omp 5 times for each combination of sizes and number of threads and takes the median value.
+*The speedup is then calculated as SEQUENTIAL EXECUTION TIME / PARALLEL EXECUTION TIME
+
+The list of sizes and number of threads can be changed in speedup.sh.

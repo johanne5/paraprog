@@ -1,0 +1,14 @@
+
+Get the right environment for TBB and ICC
+
+source /opt/intel/bin/iccvars.sh intel64
+source /opt/tbb4.0/bin/tbbvars.sh intel64
+
+Control the number of workers the following way:
+
+OpenMP OMP_NUM_THREADS=<N>
+
+Cilk   CILK_NWORKERS=<N>>
+
+TBB    OMP_NUM_THREADS=<N>
+

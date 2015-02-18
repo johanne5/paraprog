@@ -1,0 +1,132 @@
+#include <cstdio>
+#include <time.h>
+#include <sys/time.h>
+#include <math.h>
+#include <tbb/task_scheduler_init.h>
+#include <tbb/blocked_range.h>
+#include <tbb/parallel_for.h>
+#include <cstdlib>
+
+//#include <cassert>
+//#include <cfloat>
+
+const int N = 800;
+using namespace std;
+using namespace tbb;
+
+long _time (void)
+{
+  struct timeval t;
+
+  gettimeofday(&t,NULL);
+  return t.tv_sec*1000000+t.tv_usec;
+}
+
+
+
+void mxm( float c[N][N], float a[N][N], float b[N][N] ) {
+  for( int i = 0; i < N; ++i ) {
+    for( int j=0; j<N; ++j ) {
+      float sum = 0;
+	  for( int k=0; k<N; ++k ) {
+        sum += a[i][k]*b[k][j];
+	  }
+      c[i][j] = sum;
+    }
+  }
+}
+
+
+class MxMBody {
+	// Declare pointers to private variables here (c, a and b) 
+	float (*a)[N]; 
+	float (*b)[N]; 
+	float (*c)[N];
+
+public:
+
+	// Can use default copy constructor and desctructor (no need to define them)
+
+	
+	// Define constructor to initialize private variables passed in from ParallelMxM
+	MxMBody(float (*_c)[N], float (*_a)[N], float (*_b)[N]) : 
+	  c(_c), a(_a), b(_b) {}
+	
+	void operator() (blocked_range<int> &range) const {
+		// Add body of parallel_for here
+		for( int i = range.begin(); i < range.end(); ++i ) {
+			for( int j=0; j<N; ++j ) {
+				float sum = 0;
+				for( int k=0; k<N; ++k ) {
+					sum += a[i][k]*b[k][j];
+				}
+				c[i][j] = sum;
+			}
+		}
+	}
+};
+
+
+void ParallelMxM(float c[N][N], float a[N][N], float b[N][N] ) {
+	parallel_for(blocked_range<int>(0, N, 50), MxMBody(c,a,b));
+}
+
+void initialize(float a[N][N], float b[N][N]) {
+   for (int i = 0; i < N; ++i) {
+     for (int j = 0; j < N; ++j) {
+       a[i][j] = (float)i+j;
+       b[i][j] = (float)i*j;
+     }
+   }
+}
+
+void validate(float c[N][N], float r[N][N]) {
+	for (int i = 0; i < N; ++i) {
+		for (int j = 0; j < N; ++j)	{
+			if (c[i][j] != r[i][j]) {	
+				printf("c != rc at [%d][%d]\n",i,j);
+			}
+		}
+	}
+}
+
+float a[N][N], b[N][N], c[N][N], rc[N][N];
+int main() {
+    
+    clock_t   before, after;
+    float time_serial, time_parallel;
+    int num_threads = 5;
+
+    num_threads = atoi(getenv("OMP_NUM_THREADS"));
+    task_scheduler_init init(num_threads);
+    //task_scheduler_init init;
+
+
+
+    initialize(a,b);
+    
+  
+    before = _time();
+    mxm(rc,a,b);
+    after = _time();
+    time_serial= (float)(after - before)/ CLOCKS_PER_SEC;
+   
+
+    initialize(a,b);
+   
+    before = _time();
+    ParallelMxM(c,a,b); 
+    after = _time();
+
+    time_parallel = (float)(after - before)/ CLOCKS_PER_SEC;
+    
+
+    validate(c,rc);
+
+	printf("  serial mxm = %f seconds\nparallel mxm = %f seconds\nfor a speedup of %6.2fX\n\n",
+           time_serial, time_parallel,time_serial/time_parallel );
+
+    return 0;
+}
+
+

@@ -70,6 +70,7 @@ int max_x=-1, max_y=-1, min_x=-1, min_y=-1, min=INT_MAX, max=INT_MIN;
 
 /* critical section */
 void set_min_max(int x, int y) {
+  if(matrix[x][y] < min || matrix[x][y] > max)
   pthread_mutex_lock(&min_max); //locking mutex
   if(matrix[x][y] < min) { //if current value is strictly less than the current minimum
     min = matrix[x][y]; //set new minimum

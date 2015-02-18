@@ -1,0 +1,554 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"prog",
+				"programName"
+			],
+			[
+				"S",
+				"SEQTIME"
+			],
+			[
+				"num",
+				"numWorkers"
+			],
+			[
+				"is",
+				"isPalindrome"
+			],
+			[
+				"word",
+				"wordBuffer"
+			],
+			[
+				"gmin",
+				"gminy"
+			],
+			[
+				"out",
+				"outBuffer"
+			],
+			[
+				"ou",
+				"outBuffer"
+			],
+			[
+				"st",
+				"start"
+			],
+			[
+				"wr",
+				"write_output_file"
+			],
+			[
+				"inc",
+				"incr_pali"
+			],
+			[
+				"tot",
+				"totalPalindromes"
+			],
+			[
+				"pth",
+				"pthread_mutex_lock"
+			],
+			[
+				"fi",
+				"find_word"
+			],
+			[
+				"write",
+				"write_palindromes"
+			],
+			[
+				"palin",
+				"palindromesOffset"
+			],
+			[
+				"pt",
+				"pthread_mutex_lock"
+			],
+			[
+				"thread",
+				"threadInfoOffset"
+			],
+			[
+				"r",
+				"res"
+			],
+			[
+				"wor",
+				"words"
+			],
+			[
+				"bag",
+				"bag_lock"
+			],
+			[
+				"buff",
+				"bufferpointer"
+			],
+			[
+				"buffer",
+				"buffer"
+			],
+			[
+				"my",
+				"my_row"
+			],
+			[
+				"ba",
+				"bag_of_tasks"
+			],
+			[
+				"pthr",
+				"pthread_mutex_unlock"
+			],
+			[
+				"pthread",
+				"pthread_mutex_t"
+			],
+			[
+				"worker",
+				"workerid"
+			],
+			[
+				"pthread_mutex",
+				"pthread_mutex_t"
+			],
+			[
+				"su",
+				"sum_lock"
+			],
+			[
+				"pthread_mut",
+				"pthread_mutex_t"
+			],
+			[
+				"MA",
+				"MAXSIZE"
+			],
+			[
+				"print",
+				"printf	printf …"
+			],
+			[
+				"set",
+				"set_min_max"
+			],
+			[
+				"max",
+				"max_y"
+			],
+			[
+				"min",
+				"min_y"
+			],
+			[
+				"pthread_m",
+				"pthread_mutex_lock"
+			],
+			[
+				"test",
+				"TEST_SOURCE_FILES"
+			],
+			[
+				"TE",
+				"TEST_SOURCE_FILES"
+			],
+			[
+				"ALL",
+				"ALL_SOURCE_FILES"
+			],
+			[
+				"TEST",
+				"TEST_OBJECT_FILES"
+			],
+			[
+				"t",
+				"t_block"
+			],
+			[
+				"size",
+				"size_t"
+			],
+			[
+				"zom",
+				"zombiehandler"
+			],
+			[
+				"sig",
+				"signal"
+			],
+			[
+				"wait",
+				"waitpid"
+			],
+			[
+				"rea",
+				"readbackup"
+			],
+			[
+				"ar",
+				"argc"
+			],
+			[
+				"arg",
+				"argv"
+			],
+			[
+				"pri",
+				"printf	printf …"
+			],
+			[
+				"grep",
+				"grepargs"
+			],
+			[
+				"writ",
+				"WRITE"
+			],
+			[
+				"re",
+				"read"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/myC.sublime-build",
+	"command_palette":
+	{
+		"height": 287.0,
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"inde",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"comm",
+				"Toggle Comment"
+			],
+			[
+				"toggle",
+				"Toggle Comment"
+			],
+			[
+				"reind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"togg",
+				"Toggle Comment"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"inden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"tog",
+				"Toggle Comment"
+			],
+			[
+				"to",
+				"Toggle Comment"
+			],
+			[
+				"com",
+				"Toggle Block Comment"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+	],
+	"file_history":
+	[
+		"/Users/johannes/kth/paraprog/hw2/p3/speedup.sh",
+		"/Users/johannes/kth/paraprog/hw2/p3/palindrome.c",
+		"/Users/johannes/kth/paraprog/hw2/p3/speedup_output_example",
+		"/Users/johannes/kth/paraprog/hw2/p3/output",
+		"/Users/johannes/kth/paraprog/hw2/p3/README",
+		"/Users/johannes/kth/paraprog/hw2/p1/README",
+		"/Users/johannes/kth/paraprog/hw2/p1/speedup_output_example",
+		"/Users/johannes/kth/paraprog/hw2/p1/a_omp.c",
+		"/Users/johannes/kth/paraprog/hw2/p1/c_omp.c",
+		"/Users/johannes/kth/paraprog/hw2/p1/Makefile",
+		"/Users/johannes/kth/paraprog/hw2/p6/palindrome.dSYM/Contents/Info.plist",
+		"/Users/johannes/kth/paraprog/hw2/p1/a_pthread.c",
+		"/Users/johannes/kth/paraprog/hw2/p6/Makefile",
+		"/Users/johannes/kth/paraprog/hw2/p1/b_omp.c",
+		"/Users/johannes/kth/paraprog/hw1/p1/Makefile",
+		"/Users/johannes/kth/paraprog/hw1/p1/a.c",
+		"/Users/johannes/Library/Application Support/Sublime Text 3/Packages/User/myC.sublime-build",
+		"/Users/johannes/kth/paraprog/hw1/p1/b.c",
+		"/Users/johannes/kth/paraprog/hw1/p1/.sublime-build",
+		"/Users/johannes/kth/paraprog/hw1/p6/Makefile",
+		"/Users/johannes/kth/paraprog/hw1/p6/palindrome.c",
+		"/Users/johannes/kth/paraprog/hw1/p1/c.c",
+		"/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/MolDyn/forces.c",
+		"/Users/johannes/kth/paraprog/MSP-hands-on-code/omp-hands-on/make.def",
+		"/Users/johannes/kth/paraprog/hw1/p6/micke-output",
+		"/Users/johannes/kth/paraprog/hw1/p6/output",
+		"/Users/johannes/kth/paraprog/hw1/p1/matrixSum.c",
+		"/Users/johannes/kth/paraprog/MakeFile",
+		"/Users/johannes/kth/os/malloc/quicksort.c",
+		"/Users/johannes/kth/os/malloc/Makefile",
+		"/Users/johannes/kth/os/malloc/malloc.c",
+		"/Users/johannes/kth/hut/INLÄMNINGSUPPGIFT 3",
+		"/Users/johannes/kth/os/malloc/malloc.h",
+		"/Users/johannes/kth/os/malloc/test.c",
+		"/Users/johannes/kth/os/malloc/todo",
+		"/afs/nada.kth.se/home/i/u1zzynqi/os/cli/cli.c",
+		"/afs/nada.kth.se/home/i/u1zzynqi/os/malloc/malloc.sublime-project",
+		"/afs/nada.kth.se/home/i/u1zzynqi/os/malloc/add",
+		"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labW/cloak",
+		"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labW/xsrf/js.js",
+		"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labW/xsrf/xsrf.html",
+		"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labW/xsrf/iframe.html",
+		"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labW/zoobar/demo-client.php",
+		"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labW/zoobar/svc-echo.php",
+		"/afs/nada.kth.se/home/i/u1zzynqi/os/cli/.__afsD737",
+		"/afs/nada.kth.se/home/i/u1zzynqi/ingmet/hu",
+		"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labS/report",
+		"/afs/nada.kth.se/home/i/u1zzynqi/os/pipes/src/digenv",
+		"/afs/nada.kth.se/home/i/u1zzynqi/os/pipes/src/digenv.c",
+		"/afs/nada.kth.se/home/i/u1zzynqi/os/pipes/src/.__afsF80F"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"malloc.c",
+			"",
+			"/afs/nada.kth.se/home/i/u1zzynqi/dasak/labW/zoobar",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"SEQTIME",
+			"INDEX",
+			"STATS",
+			"min",
+			"write_output_file",
+			"buf",
+			"buffer",
+			"current_word",
+			"bag",
+			"incr_pali",
+			"write_palindromes",
+			"pali_lock",
+			"totalPalindromes_lock",
+			"totalPalindromes",
+			"tot_pali",
+			"infile",
+			"file",
+			"palindromesOffset",
+			"numPalindromes",
+			"offset",
+			"STRIP",
+			"numbytes",
+			"numWorkers",
+			"WORKERS",
+			"wed",
+			"no",
+			"wed",
+			"nrwords",
+			"numworkers",
+			"infile",
+			"init",
+			"MAP_ANONYMOUS",
+			"*t_block",
+			"cookie",
+			"10",
+			"noerr",
+			"buf",
+			"fd[WRITE]",
+			"fd[READ]"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"MAP_ANON",
+			"WRITE",
+			"READ"
+		],
+		"reverse": false,
+		"show_context": false,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 202.0
+	},
+	"output.find_results":
+	{
+		"height": 271.0
+	},
+	"project": "hws.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/kth/paraprog/hw2/hw2.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 190.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

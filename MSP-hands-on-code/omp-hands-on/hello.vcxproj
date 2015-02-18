@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DD871CC2-A217-423B-81C4-AB0B4618DC04}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="hello.c" />
+    <ClCompile Include="linked.c" />
+    <ClCompile Include="matmul.c" />
+    <ClCompile Include="moldyn\dfill.c" />
+    <ClCompile Include="moldyn\domove.c" />
+    <ClCompile Include="moldyn\dscal.c" />
+    <ClCompile Include="moldyn\fcc.c" />
+    <ClCompile Include="moldyn\forces.c" />
+    <ClCompile Include="moldyn\main.c" />
+    <ClCompile Include="moldyn\mkekin.c" />
+    <ClCompile Include="moldyn\moldynsol1\dfill.c" />
+    <ClCompile Include="moldyn\moldynsol1\domove.c" />
+    <ClCompile Include="moldyn\moldynsol1\dscal.c" />
+    <ClCompile Include="moldyn\moldynsol1\fcc.c" />
+    <ClCompile Include="moldyn\moldynsol1\forces.c" />
+    <ClCompile Include="moldyn\moldynsol1\main.c" />
+    <ClCompile Include="moldyn\moldynsol1\mkekin.c" />
+    <ClCompile Include="moldyn\moldynsol1\mxwell.c" />
+    <ClCompile Include="moldyn\moldynsol1\prnout.c" />
+    <ClCompile Include="moldyn\moldynsol1\random.c" />
+    <ClCompile Include="moldyn\moldynsol1\velavg.c" />
+    <ClCompile Include="moldyn\moldynsol2\dfill.c" />
+    <ClCompile Include="moldyn\moldynsol2\domove.c" />
+    <ClCompile Include="moldyn\moldynsol2\dscal.c" />
+    <ClCompile Include="moldyn\moldynsol2\fcc.c" />
+    <ClCompile Include="moldyn\moldynsol2\forces.c" />
+    <ClCompile Include="moldyn\moldynsol2\main.c" />
+    <ClCompile Include="moldyn\moldynsol2\mkekin.c" />
+    <ClCompile Include="moldyn\moldynsol2\mxwell.c" />
+    <ClCompile Include="moldyn\moldynsol2\prnout.c" />
+    <ClCompile Include="moldyn\moldynsol2\random.c" />
+    <ClCompile Include="moldyn\moldynsol2\velavg.c" />
+    <ClCompile Include="moldyn\moldynsol3\dfill.c" />
+    <ClCompile Include="moldyn\moldynsol3\domove.c" />
+    <ClCompile Include="moldyn\moldynsol3\dscal.c" />
+    <ClCompile Include="moldyn\moldynsol3\fcc.c" />
+    <ClCompile Include="moldyn\moldynsol3\forces.c" />
+    <ClCompile Include="moldyn\moldynsol3\main.c" />
+    <ClCompile Include="moldyn\moldynsol3\mkekin.c" />
+    <ClCompile Include="moldyn\moldynsol3\mxwell.c" />
+    <ClCompile Include="moldyn\moldynsol3\prnout.c" />
+    <ClCompile Include="moldyn\moldynsol3\random.c" />
+    <ClCompile Include="moldyn\moldynsol3\velavg.c" />
+    <ClCompile Include="moldyn\mxwell.c" />
+    <ClCompile Include="moldyn\prnout.c" />
+    <ClCompile Include="moldyn\random.c" />
+    <ClCompile Include="moldyn\velavg.c" />
+    <ClCompile Include="pi.c" />
+    <ClCompile Include="pi_mc.c" />
+    <ClCompile Include="prod_cons.c" />
+    <ClCompile Include="random.c" />
+    <ClCompile Include="solutions\hello_par.c" />
+    <ClCompile Include="solutions\hello_par2.c" />
+    <ClCompile Include="solutions\linked_omp3_tasks.c" />
+    <ClCompile Include="solutions\matmul_par.c" />
+    <ClCompile Include="solutions\pi.c" />
+    <ClCompile Include="solutions\pi_loop.c" />
+    <ClCompile Include="solutions\pi_mc.c" />
+    <ClCompile Include="solutions\pi_mc_par.c" />
+    <ClCompile Include="solutions\pi_mc_par_array.c" />
+    <ClCompile Include="solutions\pi_spmd_final.c" />
+    <ClCompile Include="solutions\pi_spmd_simple.c" />
+    <ClCompile Include="solutions\prod_cons_par.c" />
+    <ClCompile Include="solutions\random_par.c" />
+    <ClCompile Include="solutions\random_seq_lcg.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gcc.def" />
+    <None Include="make.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="moldyn\moldynsol1\random.h" />
+    <ClInclude Include="moldyn\moldynsol2\random.h" />
+    <ClInclude Include="moldyn\moldynsol3\random.h" />
+    <ClInclude Include="moldyn\random.h" />
+    <ClInclude Include="random.h" />
+    <ClInclude Include="solutions\random.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

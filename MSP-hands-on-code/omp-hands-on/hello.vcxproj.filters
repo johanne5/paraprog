@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="hello.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="linked.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matmul.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pi_mc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="prod_cons.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\dfill.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\domove.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\dscal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\fcc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\forces.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\mkekin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\mxwell.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\prnout.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\velavg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\dfill.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\domove.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\dscal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\fcc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\forces.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\mkekin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\mxwell.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\prnout.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol1\velavg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\dfill.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\domove.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\dscal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\fcc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\forces.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\mkekin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\mxwell.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\prnout.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol2\velavg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\dfill.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\domove.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\dscal.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\fcc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\forces.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\mkekin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\mxwell.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\prnout.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\random.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moldyn\moldynsol3\velavg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\hello_par.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\hello_par2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\linked_omp3_tasks.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\matmul_par.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\pi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\pi_loop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\pi_mc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\pi_mc_par.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\pi_mc_par_array.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\pi_spmd_final.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\pi_spmd_simple.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\prod_cons_par.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\random_par.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="solutions\random_seq_lcg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gcc.def">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="make.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="moldyn\random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="moldyn\moldynsol1\random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="moldyn\moldynsol2\random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="moldyn\moldynsol3\random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="solutions\random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

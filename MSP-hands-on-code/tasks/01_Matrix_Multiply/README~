@@ -1,0 +1,8 @@
+
+Control the number of workers the following way:
+
+OpenMP OMP_NUM_THREADS=<N>
+
+Cilk   CILK_NWORKERS=<N>>
+
+TBB    OMP_NUM_THREADS=<N>

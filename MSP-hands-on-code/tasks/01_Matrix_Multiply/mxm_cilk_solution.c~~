@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <time.h>
+#include <math.h>
+#include <tbb/task_scheduler_init.h>
+#include <tbb/blocked_range.h>
+#include <tbb/parallel_for.h>
+
+
+const int N = 800;
+
+
+void mxm( float c[N][N], float a[N][N], float b[N][N] ) {
+  for( int i = 0; i < N; ++i ) {
+    for( int j=0; j<N; ++j ) {
+      float sum = 0;
+	  for( int k=0; k<N; ++k ) {
+        sum += a[i][k]*b[k][j];
+	  }
+      c[i][j] = sum;
+    }
+  }
+}
+
+
+void initialize(float a[N][N], float b[N][N]) {
+   for (int i = 0; i < N; ++i) {
+     for (int j = 0; j < N; ++j) {
+       a[i][j] = (float)i+j;
+       b[i][j] = (float)i*j;
+     }
+   }
+}
+
+
+
+void validate(float c[N][N], float r[N][N]) {
+	for (int i = 0; i < N; ++i) {
+		for (int j = 0; j < N; ++j)	{
+			if (c[i][j] != r[i][j]) {	
+				printf("c != rc at [%d][%d]\n",i,j);
+			}
+		}
+	}
+}
+
+
+float a[N][N], b[N][N], c[N][N], rc[N][N];
+int main() {
+    
+    clock_t   before, after;
+    float time_serial, time_parallel;
+    
+    task_scheduler_init init;
+
+    initialize(a,b);
+    
+    before = clock();
+    mxm(rc,a,b);
+    after = clock();
+    time_serial= (float)(after - before)/ CLOCKS_PER_SEC;
+   
+
+    initialize(a,b);
+   
+    before = clock();
+    ParallelMxM(c,a,b); 
+    after = clock();
+    time_parallel = (float)(after - before)/ CLOCKS_PER_SEC;
+    
+
+    validate(c,rc);
+
+	printf("  serial mxm = %f seconds\nparallel mxm = %f seconds\nfor a speedup of %6.2fX\n\n",
+           time_serial, time_parallel,time_serial/time_parallel );
+
+    return 0;
+}
+
+
