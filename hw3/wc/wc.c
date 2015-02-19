@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
 				else sem_post(q); //unlock queue mutex lock
 				
 			}
-			/*Symmtry, see comments from previous selective statement */
+			/*Symmtry, see comments from previous selective statement 	*/
 			else if(GENTS == myGender) {
 				sem_wait(q);
 				if(wcount | wwcount){

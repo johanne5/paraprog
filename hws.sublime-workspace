@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"jar",
+				"jarSpace"
+			],
+			[
+				"mw",
+				"mwcount"
+			],
+			[
+				"m",
+				"m"
+			],
+			[
+				"head",
+				"headCount"
+			],
+			[
+				"MA",
+				"MAXHEADS"
+			],
+			[
+				"he",
+				"headCount"
+			],
+			[
+				"omp",
+				"omp_get_thread_num"
+			],
+			[
+				"sem",
+				"sem_init"
+			],
+			[
 				"prog",
 				"programName"
 			],
@@ -128,10 +160,6 @@
 				"pthread_mutex_t"
 			],
 			[
-				"MA",
-				"MAXSIZE"
-			],
-			[
 				"print",
 				"printf	printf …"
 			],
@@ -220,9 +248,10 @@
 	"buffers":
 	[
 		{
+			"file": "hw3/birds/Makefile",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 403,
 				"line_ending": "Unix"
 			}
 		}
@@ -230,9 +259,13 @@
 	"build_system": "Packages/User/myC.sublime-build",
 	"command_palette":
 	{
-		"height": 287.0,
+		"height": 127.0,
 		"selected_items":
 		[
+			[
+				"reind",
+				"Indentation: Reindent Lines"
+			],
 			[
 				"instal",
 				"Package Control: Install Package"
@@ -248,10 +281,6 @@
 			[
 				"toggle",
 				"Toggle Comment"
-			],
-			[
-				"reind",
-				"Indentation: Reindent Lines"
 			],
 			[
 				"togg",
@@ -298,15 +327,22 @@
 	},
 	"expanded_folders":
 	[
+		"/Users/johannes/kth/paraprog/hw2"
 	],
 	"file_history":
 	[
+		"/Users/johannes/kth/paraprog/hw3/birds/birds.c",
+		"/Users/johannes/kth/paraprog/hw3/bees/bees.c",
+		"/Users/johannes/kth/paraprog/hw3/wc/wc.c",
+		"/Users/johannes/kth/paraprog/hw3/bees/Makefile",
+		"/Users/johannes/Downloads/bathroom.txt",
+		"/Users/johannes/kth/paraprog/hw2/p1/README",
+		"/Users/johannes/kth/paraprog/hw3/wc/Makefile",
 		"/Users/johannes/kth/paraprog/hw2/p3/speedup.sh",
 		"/Users/johannes/kth/paraprog/hw2/p3/palindrome.c",
 		"/Users/johannes/kth/paraprog/hw2/p3/speedup_output_example",
 		"/Users/johannes/kth/paraprog/hw2/p3/output",
 		"/Users/johannes/kth/paraprog/hw2/p3/README",
-		"/Users/johannes/kth/paraprog/hw2/p1/README",
 		"/Users/johannes/kth/paraprog/hw2/p1/speedup_output_example",
 		"/Users/johannes/kth/paraprog/hw2/p1/a_omp.c",
 		"/Users/johannes/kth/paraprog/hw2/p1/c_omp.c",
@@ -354,7 +390,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -373,6 +409,24 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"jarSpace",
+			"full",
+			"jar",
+			"jarSize",
+			"DEFAULTBEES",
+			"numBees",
+			"numGuests",
+			"gents queue",
+			"ladies queue",
+			"mwcount",
+			"mcount",
+			"touchies",
+			"xxxxx",
+			"m",
+			"w",
+			"GENTLEMEN",
+			"/w",
+			"/m",
 			"SEQTIME",
 			"INDEX",
 			"STATS",
@@ -437,23 +491,24 @@
 			[
 				{
 					"buffer": 0,
+					"file": "hw3/birds/Makefile",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 403,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								302,
+								302
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
