@@ -6,7 +6,7 @@ endif
 
 #variables
 CC = /usr/local/bin/gcc-4.9
-CFLAGS = $(DEBUG) $(WARNINGS) -O3 -lpthread -fopenmp
+CFLAGS = $(DEBUG) $(WARNINGS) -O3 -fopenmp
 
 #files
 #DEPS = matrix.h

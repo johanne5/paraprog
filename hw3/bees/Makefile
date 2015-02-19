@@ -6,24 +6,23 @@ endif
 
 #variables
 CC = /usr/local/bin/gcc-4.9
-CFLAGS = $(DEBUG) $(WARNINGS) -O3 -lpthread -fopenmp
+CFLAGS = $(DEBUG) $(WARNINGS) -O3 -fopenmp
 
 #files
 #DEPS = matrix.h
-SOURCE_FILES = bees.c
+PROGRAM_NAME = bees
+SOURCE_FILES = $(PROGRAM_NAME).c
 OBJECT_FILES = $(SOURCE_FILES:.c=.o)
 
-all: bees
+all: $(PROGRAM_NAME)
 
 %: %.o
 	$(CC) -o $@ $^
-
-
-#matrixSum: $(OBJECT_FILES)
-#	$(CC) -o $@ $^
 
 %.o: %.c $(DEPS)
 	$(CC) -c $(CFLAGS) $<
 
 clear:
-	rm -rf *.o wc
+	rm -rf *.o $(PROGRAM_NAME)
+run:
+	./$(PROGRAM_NAME)

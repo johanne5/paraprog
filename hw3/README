@@ -1,0 +1,22 @@
+                                                            ____             
+,-.----.       ,---,.   ,---,           ,---,            ,'  , `.    ,---,. 
+\    /  \    ,'  .' |  '  .' \        .'  .' `\       ,-+-,.' _ |  ,'  .' | 
+;   :    \ ,---.'   | /  ;    '.    ,---.'     \   ,-+-. ;   , ||,---.'   | 
+|   | .\ : |   |   .':  :       \   |   |  .`\  | ,--.'|'   |  ;||   |   .' 
+.   : |: | :   :  |-,:  |   /\   \  :   : |  '  ||   |  ,', |  '::   :  |-, 
+|   |  \ : :   |  ;/||  :  ' ;.   : |   ' '  ;  :|   | /  | |  ||:   |  ;/| 
+|   : .  / |   :   .'|  |  ;/  \   \'   | ;  .  |'   | :  | :  |,|   :   .' 
+;   | |  \ |   |  |-,'  :  | \  \ ,'|   | :  |  ';   . |  ; |--' |   |  |-, 
+|   | ;\  \'   :  ;/||  |  '  '--'  '   : | /  ; |   : |  | ,    '   :  ;/| 
+:   ' | \.'|   |    \|  :  :        |   | '` ,/  |   : '  |/     |   |    \ 
+:   : :-'  |   :   .'|  | ,'        ;   :  .'    ;   | |`-'      |   :   .' 
+|   |.'    |   | ,'  `--''          |   ,.'      |   ;/          |   | ,'   
+`---'      `----'                   '---'        '---'           `----'     
+                                                                           
+
+All programs compile with gcc 4.9 on OSX 10.10 (Yosemite) with the flags found in the makefiles.
+
+To compile, change the CC variable to your C-compiler in any of the makefiles.
+All three programs are then compiled by running "make", and ran by running "make run".
+
+All three programs use OpenMP for parallel sections and semaphore.h for synchronization, i.e. for locking, flagging and FIFO mechanisms.

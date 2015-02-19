@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
 			}		
 			else if(omp_get_thread_num()==1) { //consumer thread waits on full flag
 				sem_wait(full);
-				printf("Brother bear saves the day (:\n");
+				printf("Brother bear drinks all the bees' loads, rolls over and goes back to sleep\n");
 				jarSpace=jarSize; //consumes everything
 				sem_post(jar); //unlocks mutex
 			}

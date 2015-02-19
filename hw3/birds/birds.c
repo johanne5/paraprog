@@ -42,17 +42,19 @@ int main(int argc, char *argv[]) {
 			}		
 			else if(omp_get_thread_num()==1) { //provider thread waits on empty flag
 				sem_wait(empty);
-				printf("Big moma saves the day (:\n");
+				printf("Moma bird flies off to harvest more worms...\n");
+				sleep(3);
+				printf("and returns with a plateful!! :D\n");
 				food=plateSize; //fills up plate
 				sem_post(plate); //unlocks mutex
 			}
 			else {
 				sleep(1 + (rand()%15)); //random sleep
 				sem_wait(plate); //waits to lock mutex
-				printf("Hashling %d bites a worm in the bum...\n", myNumber);
+				printf("Hashling %d eats a worm. It tickles in the tummy!\n", myNumber);
 				food--; //produces
 				if(!food) { //if no more space to produce, set flag and give lock to consumer thread
-					printf("Hashling %d swallows it whole! No more food, what to do!?\n", myNumber);
+					printf("Hashling %d ate the last worm! What to do, what to do!?\n", myNumber);
 					sem_post(empty);
 				}
 				else sem_post(plate); //else unlock mutex
