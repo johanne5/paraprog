@@ -1,0 +1,81 @@
+package birds;
+
+import java.util.Random;
+
+public class Birds {
+	
+	class Bee extends Thread {
+		Plate jar;
+		Random r = new Random();
+		public Bee(Plate jar) {
+			this.jar = jar;
+		}
+		
+		public void run(){
+			while(true){
+				try {
+					sleep(r.nextInt(5000));
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				jar.dropHoney();
+				
+			}
+		}	
+		
+	}
+	
+	class MomaBird extends Thread {
+		Plate plateOfWorms;
+		public MomaBird(Plate jar) {
+			this.plateOfWorms = jar;
+		}
+		public void run(){
+			while(true){
+				plateOfWorms.eatHoney();
+			}
+			
+		}
+		
+	}
+	
+	class Plate {
+		int space=SIZE;
+		
+		synchronized void dropHoney(){
+			space--;
+			System.out.println("Bee " + Thread.currentThread().getId() + " dropped honey");
+			if(space==0) {notify();}
+		}
+		
+		synchronized void eatHoney(){
+			while(space!=0){
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+			System.out.println("Bear (" + Thread.currentThread().getId() + ") emptied the jar");
+			space=SIZE;
+		}
+		
+	}
+	static final int SIZE=10;
+	Plate plateOfWorms;
+	
+	public Birds() {
+		plateOfWorms = new Plate();
+		int numChicks=3;
+		for(int i=0;i<numChicks;i++){
+			new Bee(plateOfWorms).start();
+		}
+		new MomaBird(plateOfWorms).start();
+	}
+	public static void main(String[] args) {
+		new Birds();
+	}
+
+}

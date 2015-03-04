@@ -248,10 +248,34 @@
 	"buffers":
 	[
 		{
-			"file": "hw3/birds/Makefile",
+			"file": "/Users/johannes/Downloads/rw.java",
 			"settings":
 			{
-				"buffer_size": 403,
+				"buffer_size": 1780,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "hw3/bees/bees.c",
+			"settings":
+			{
+				"buffer_size": 2534,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "hw3/birds/birds.c",
+			"settings":
+			{
+				"buffer_size": 2667,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "hw3/wc/wc.c",
+			"settings":
+			{
+				"buffer_size": 3373,
 				"line_ending": "Unix"
 			}
 		}
@@ -327,13 +351,20 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/johannes/kth/paraprog/hw2"
+		"/Users/johannes/kth/paraprog/hw3",
+		"/Users/johannes/kth/paraprog/hw3/bees",
+		"/Users/johannes/kth/paraprog/hw3/birds",
+		"/Users/johannes/kth/paraprog/hw3/wc"
 	],
 	"file_history":
 	[
+		"/Users/johannes/Desktop/Wc.java",
+		"/Users/johannes/kth/paraprog/hw2/p1/c_omp.c",
+		"/Users/johannes/kth/paraprog/hw3/wc/wc.c",
 		"/Users/johannes/kth/paraprog/hw3/birds/birds.c",
 		"/Users/johannes/kth/paraprog/hw3/bees/bees.c",
-		"/Users/johannes/kth/paraprog/hw3/wc/wc.c",
+		"/Users/johannes/kth/paraprog/hw3/README",
+		"/Users/johannes/kth/paraprog/hw3/birds/Makefile",
 		"/Users/johannes/kth/paraprog/hw3/bees/Makefile",
 		"/Users/johannes/Downloads/bathroom.txt",
 		"/Users/johannes/kth/paraprog/hw2/p1/README",
@@ -345,7 +376,6 @@
 		"/Users/johannes/kth/paraprog/hw2/p3/README",
 		"/Users/johannes/kth/paraprog/hw2/p1/speedup_output_example",
 		"/Users/johannes/kth/paraprog/hw2/p1/a_omp.c",
-		"/Users/johannes/kth/paraprog/hw2/p1/c_omp.c",
 		"/Users/johannes/kth/paraprog/hw2/p1/Makefile",
 		"/Users/johannes/kth/paraprog/hw2/p6/palindrome.dSYM/Contents/Info.plist",
 		"/Users/johannes/kth/paraprog/hw2/p1/a_pthread.c",
@@ -409,6 +439,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"wait",
 			"jarSpace",
 			"full",
 			"jar",
@@ -486,31 +517,120 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "hw3/birds/Makefile",
+					"file": "/Users/johannes/Downloads/rw.java",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 403,
+						"buffer_size": 1780,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								302
+								787,
+								791
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
+						"translation.y": 320.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "hw3/bees/bees.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1566,
+								1566
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 305.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "hw3/birds/birds.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2667,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2330,
+								2330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 333.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "hw3/wc/wc.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3373,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 1.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
@@ -580,7 +700,7 @@
 		[
 			[
 				"",
-				"~/kth/paraprog/hw2/hw2.sublime-project"
+				"~/kth/hut/peakflow/peakflow.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -601,7 +721,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 190.0,
+	"side_bar_width": 123.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

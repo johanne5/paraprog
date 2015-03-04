@@ -1,0 +1,117 @@
+package wc;
+
+public class Wc {
+	
+	final int MAN=0, WOMAN=0, NUMGUESTS=10;
+	
+	int womenInside=0, womenWaiting=0, menInside=0, menWaiting=0, sign=0;
+	
+	class Person extends Thread{
+		
+		int gender;
+		
+		Person(int gender){
+			if(gender>1) System.out.println("Too high!!");
+			else if(gender<0) System.out.println("Too low!!");
+			else this.gender=gender;
+		}
+		
+		boolean isMan(){
+			return MAN==gender ? true : false;
+		}
+		
+		synchronized void enterOrExit(boolean enter){
+			if(enter){
+				if(isMan()){
+					if(0<womenInside || 0<womenWaiting){
+						menWaiting++;
+						while(!signIsMan()){
+							try {
+								wait();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}		
+					sign=MAN;
+					menInside++;
+					if(0<menWaiting) notify();
+				}
+				else{
+					if(0<menInside || 0<menWaiting){
+						womenWaiting++;
+						while(signIsMan()){
+							try {
+								wait();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					}		
+					sign=WOMAN;
+					womenInside++;
+					if(0<womenWaiting) notify();
+				}
+			}
+			else{
+				if(isMan()){
+					menInside--;
+					if(0==menInside && 0<womenWaiting){
+						System.out.println("SIGN NOW SHOWS " + (signIsMan() ? "GENTLEMEN" : "LADIES"));
+						sign=WOMAN;
+						womenWaiting--;
+						notify();
+					}
+				}
+				else{
+					womenInside--;
+					if(0==womenInside && 0<menWaiting){
+						System.out.println("SIGN NOW SHOWS " + (signIsMan() ? "GENTLEMEN" : "LADIES"));
+						sign=MAN;
+						menWaiting--;
+						notify();
+					}
+					
+				}
+			}
+			
+		}
+		
+		synchronized void exit(){
+			
+		}
+		
+		public void run(){
+			enterOrExit(true);
+			System.out.println(isMan() ? "Man " : "Woman " + Thread.currentThread().getId() + " uses the bathroom");
+			try {
+				sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			enterOrExit(false);
+			
+		}
+	}
+	
+	boolean signIsMan(){
+		return MAN==sign ? true : false;
+	}
+	
+	public Wc() {
+		
+		for(int i=0; i<NUMGUESTS; i++){
+			
+		}
+		
+	}
+
+	public static void main(String[] args) {
+		new Wc();
+
+	}
+
+}

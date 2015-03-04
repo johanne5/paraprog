@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 				sem_wait(plate); //waits to lock mutex
 				printf("Hashling %d eats a worm. It tickles in the tummy!\n", myNumber);
 				food--; //produces
-				if(!food) { //if no more space to produce, set flag and give lock to consumer thread
+				if(!food) { //if no more resources to consume, set flag and give lock to producer thread
 					printf("Hashling %d ate the last worm! What to do, what to do!?\n", myNumber);
 					sem_post(empty);
 				}

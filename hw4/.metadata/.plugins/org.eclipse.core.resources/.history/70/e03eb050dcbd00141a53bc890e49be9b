@@ -1,0 +1,134 @@
+package wc;
+
+import java.util.Random;
+
+public class Wc {
+	
+	final int MAN=0, WOMAN=1, NUMGUESTS=10;
+	
+	int womenInside=0, womenWaiting=0, menInside=0, menWaiting=0, sign=0;
+	
+	class Person extends Thread{
+		
+		int gender;
+		Random r;
+		
+		Person(int gender){
+			if(gender>1) System.out.println("Too high!!");
+			else if(gender<0) System.out.println("Too low!!");
+			else this.gender=gender;
+			r = new Random();
+		}
+		
+		boolean isMan(){
+			return MAN==gender ? true : false;
+		}	
+		
+		public void run(){
+			while(true){
+				System.out.println("Men waiting: " + menWaiting);
+				System.out.println("Men inside: " + menInside);
+				System.out.println("Women waiting: " + womenWaiting);
+				System.out.println("Women inside: " + womenInside);
+				System.out.println();
+				try {
+					sleep(r.nextInt(3000));
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				enter(this);
+				System.out.println((isMan() ? "Man " : "Woman ") + Thread.currentThread().getId() + " uses the bathroom");
+				try {
+					sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				exit(this);
+			}
+		}
+	}
+	
+	synchronized void enter(Person p){	
+		if(p.isMan()){
+			if(0<womenInside || 0<womenWaiting){
+				menWaiting++;
+				while(true){
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("I'm awake, sign is: " + sign);
+					if(MAN==sign){
+						menWaiting--;
+						break;
+					}
+				}
+			}
+			sign=MAN;
+			menInside++;
+		}
+		else{
+			if(0<menInside || 0<menWaiting){
+				womenWaiting++;
+				while(true){
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("I'm awake, sign is: " + sign);
+					if(WOMAN==sign){
+						womenWaiting--;
+						break;
+					}
+				}
+			}
+			sign=WOMAN;
+			womenInside++;
+		}
+	}
+	
+	synchronized void exit(Person p){
+		
+		if(p.isMan()){
+			menInside--;
+			if(0==menInside && 0<womenWaiting){
+				sign=WOMAN;
+				System.out.println("I'm notifying everyone");
+				this.notifyAll();
+			}
+		}
+		else{
+			womenInside--;
+			if(0==womenInside && 0<menWaiting){
+				sign=MAN;
+				System.out.println("I'm notifying everyone");
+				this.notifyAll();
+				System.out.println("this happens");
+			}
+			
+		}
+		
+	}
+	
+	boolean signIsMan(){
+		return MAN==sign ? true : false;
+	}
+	
+	public Wc() {
+		
+		for(int i=0; i<NUMGUESTS; i++) new Person(i%2).start();
+		
+	}
+
+	public static void main(String[] args) {
+		new Wc();
+
+	}
+
+}
