@@ -1,0 +1,38 @@
+Parameters:
+	*Number of bodies
+	*Number of time steps
+	*Distance used to decide when to approximate
+	*Number of workers
+
+Output:
+	*parameters
+	*execution time
+Speedup script:
+	speedup.sh
+
+
+----- VERSIONER -----
+
+Sekvensiell
+	Kodskelett
+Parallell
+	Barnes-Hut
+
+
+----- REPORT -----
+
+Introduction.
+	Briefly describe the problem and what your report will show.
+Programs.
+	Describe your programs, stating what each does and how. Explain the program-level optimizations you have implemented.
+Evaluation.
+	Present the results from the evaluation experiments. Use tables to present the raw data and graphs to show speedups and comparisons. Also explain your results. Do not just present the output data! What do the results show? Why?
+Conclusion.
+	Briefly summarize what your report has shown, and describe what you have learned from this project.
+
+----- ATT LÄMNA IN -----
+makefile
+	that we can use to compile your programs and an instruction (in a README file) on how to build and run your programs.
+readme
+	se ovan
+källkod
