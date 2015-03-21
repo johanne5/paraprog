@@ -1,11 +1,11 @@
 #variables
 CC = gcc
-CFLAGS = -c -O3 -fopenmp
+CFLAGS = -c -O3 -fopenmp -pthread
 ifdef DEBUG
 CFLAGS += -ggdb -DDEBUG
 endif
-LINK = -lm
-PROGRAM_NAME = nbody
+LINK = -lm -lgomp
+PROGRAM_NAME = nbody_par
 
 #files
 DEPS =
