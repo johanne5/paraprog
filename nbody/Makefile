@@ -1,12 +1,9 @@
-ifdef NODEBUG
-DEBUG = 
-else
-DEBUG = -ggdb
-endif
-
 #variables
 CC = gcc
-CFLAGS = -c $(DEBUG) $(WARNINGS) -O3 -fopenmp
+CFLAGS = -c -O3 -fopenmp
+ifdef DEBUG
+CFLAGS += -ggdb -DDEBUG
+endif
 LINK = -lm
 PROGRAM_NAME = nbody
 
