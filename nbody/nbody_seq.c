@@ -48,6 +48,7 @@ int main(int argc, char *argv[]){
 	
 	init();
 	int i;
+	printBodies();
 	for (i=0; i<numTimeSteps; i++) {
 		calculateForces();
 		moveBodies();
