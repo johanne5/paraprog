@@ -53,7 +53,7 @@ void printHut(struct Hut *, int);
 void indent(int);
 void worker();
 
-int numBodies=3, numTimeSteps=20, approxLim=10000, numWorkers=100;
+int numBodies=3, numTimeSteps=20, approxLim=10000, numWorkers=1;
 //b t a w
 struct Body* bodyArray;
 
@@ -90,7 +90,6 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
-
 void worker(){
 	#pragma omp single
 	{
@@ -103,6 +102,7 @@ void worker(){
 			#pragma omp task shared(root, minX, minY, maxX, maxY)
 				genHut(&root, minX, minY, maxX, maxY);
 			#pragma omp taskwait
+			printf("generation OK!\n");
 
 			//printHut(&root,0);
 			
@@ -113,7 +113,7 @@ void worker(){
 					approxForces(&root, &bodyArray[j]);
 			}
 			#pragma omp taskwait
-			
+			printf("root is: %p\n",&root);
 			#pragma omp task
 				moveBodies();
 			#pragma omp taskwait
@@ -179,10 +179,6 @@ void genHut(struct Hut *hut, int minX, int minY, int maxX, int maxY){ //hut as i
 	(*hut).limit.north = maxY;
 	(*hut).limit.west = minX;
 	(*hut).limit.east = maxX;
-	(*hut).upperLeft=NULL;
-	(*hut).upperRight=NULL;
-	(*hut).lowerLeft=NULL;
-	(*hut).lowerRight=NULL;
 	(*hut).hutBody = NULL;
 	(*hut).massCenter= (struct Vector) {0,0};
 	if(count==0){
@@ -207,39 +203,89 @@ void genHut(struct Hut *hut, int minX, int minY, int maxX, int maxY){ //hut as i
 		(*hut).lowerLeft=&newHuts[2];
 		(*hut).lowerRight=&newHuts[3];
 
-		printf("%d %d %d %d\n",minX, minY, maxX, maxY);
-		if(maxY>minY){
+		int horizontal = minX<maxX ? 1 : 0, vertical = minY<maxY ? 1:0;
+		if(horizontal && vertical){
 			#pragma omp task shared(hut, minX, minY, maxX, maxY)
 				genHut((*hut).upperLeft, minX, (minY+maxY)/2+1, (minX+maxX)/2, maxY);
 			#pragma omp task shared(hut, minX, minY, maxX, maxY)
-				genHut((*hut).upperLeft, minX, (minY+maxY)/2+1, (minX+maxX)/2, maxY);
-
-		}
-		if(maxX>minX){
+				genHut((*hut).upperRight, (minX+maxX)/2+1, (minY+maxY)/2+1, maxX, maxY);
 			#pragma omp task shared(hut, minX, minY, maxX, maxY)
 				genHut((*hut).lowerLeft, minX, minY, (minX+maxX)/2, (minY+maxY)/2);
 			#pragma omp task shared(hut, minX, minY, maxX, maxY)
-				genHut((*hut).upperRight, (minX+maxX)/2+1, (minY+maxY)/2+1, maxX, maxY);
+				genHut((*hut).lowerRight, (minX+maxX)/2+1, minY, maxX, (minY+maxY)/2);
 		}
-		if(!maxX>minX && !maxY>minY){
-			struct Body mergedBodies = (struct Body) {1,{0,0},{(*firstBodyFound).position.x,(*firstBodyFound).position.y}, {0,0}};
+		else if(horizontal){
+			#pragma omp task shared(hut, minX, minY, maxX, maxY)
+				genHut((*hut).upperLeft, minX, minY, (minX+maxX)/2, maxY);
+			#pragma omp task shared(hut, minX, minY, maxX, maxY)
+				genHut((*hut).upperRight, (minX+maxX)/2+1, minY, maxX, maxY);
+			(*hut).lowerLeft=NULL;
+			(*hut).lowerRight=NULL;
+		}
+		else if(vertical){
+			#pragma omp task shared(hut, minX, minY, maxX, maxY)
+				genHut((*hut).upperLeft, minX, (minY+maxY)/2+1, maxX, maxY);
+			#pragma omp task shared(hut, minX, minY, maxX, maxY)
+				genHut((*hut).lowerLeft, minX, minY, maxX, (minY+maxY)/2);		
+			(*hut).upperRight=NULL;
+			(*hut).lowerRight=NULL;
+		}
+		else{
+			printf("merging!!\n");
+			printf("%d %d %d %d\n",minX, minY, maxX, maxY);
+			struct Body mergedBodies = (struct Body) {0,{0,0},{minX,minY}, {0,0}};
 			for(i=0; i<numBodies; i++){
-				if(bodyArray[i].position.x == (*firstBodyFound).position.x && bodyArray[i].position.y == (*firstBodyFound).position.y){
-					mergedBodies.m+=bodyArray[i].m;
-					bodyArray[i].m=0;
+				printf("position: [%d,%d]\n", bodyArray[i].position.x, bodyArray[i].position.y);
+				#pragma omp task shared(bodyArray, minX,minY, mergedBodies)
+				{
+					printf("position: [%d,%d] -- %d %d %d %d\n", bodyArray[i].position.x, bodyArray[i].position.y,minX, minY, maxX, maxY);
+					if(bodyArray[i].position.x == minX && bodyArray[i].position.y == minY){
+						printf("hit!!\n");
+						#pragma omp atomic
+							mergedBodies.m+=bodyArray[i].m;
+						bodyArray[i].m=0;
+						#pragma omp critical (hutBody)
+						{
+							if(!(*hut).hutBody)
+								(*hut).hutBody=&bodyArray[i];
+						}
+					}
+				}
+				
+			}
+			#pragma omp taskwait
+			fprintf(stderr, "iran\n");
+			printf("%p\n",(*hut).hutBody);
+			*(*hut).hutBody=mergedBodies;
+			(*hut).mass=mergedBodies.m;
+			(*hut).massCenter=mergedBodies.position;
+			fprintf(stderr, "iraq\n");
+			(*hut).upperLeft=NULL;
+			(*hut).upperRight=NULL;
+			(*hut).lowerLeft=NULL;
+			(*hut).lowerRight=NULL;
+		}
+
+		#pragma omp taskwait
+
+		if(!(*hut).mass){
+			int massSum=0;
+			centerOfMass = (struct Vector){0,0};
+			struct Hut *huts[] = {(*hut).upperLeft, (*hut).upperRight, (*hut).lowerLeft, (*hut).lowerRight};
+			
+			for (i = 0; i < 4; i++){
+				if(huts[i]) {
+					massSum+=(*huts[i]).mass;
+					centerOfMass.x+=(*huts[i]).massCenter.x;
+					centerOfMass.y+=(*huts[i]).massCenter.y;
 				}
 			}
+			(*hut).mass = massSum;
+			(*hut).massCenter=(struct Vector){centerOfMass.x/massSum, centerOfMass.y/massSum};	
 		}
-		#pragma omp taskwait
-		int massSum=0;
-		centerOfMass = (struct Vector){0,0};
-		for (i = 0; i < 4; i++){
-			massSum+=newHuts[i].mass;
-			centerOfMass.x+=newHuts[i].massCenter.x;
-			centerOfMass.y+=newHuts[i].massCenter.y;
-		}
-		(*hut).mass = massSum;
-		(*hut).massCenter=(struct Vector){centerOfMass.x/massSum, centerOfMass.y/massSum};	
+		printf("quba\n");
+		
+		
 	}
 }
 
@@ -333,7 +379,8 @@ void calculateForce(struct Body *b1, struct Body *b2) {
 	double distance, magnitude;
 
 	distance = sqrt(pow(((*b1).position.x - (*b2).position.x),2) + pow(((*b1).position.y - (*b2).position.y),2));
-	
+	if(!distance)
+		return;
 	magnitude = ( 5000 * (*b1).m * (*b2).m) /pow(distance,2); //6.67*exp(-11)
 	direction = (struct Vector) {(*b2).position.x-(*b1).position.x, (*b2).position.y-(*b1).position.y};
 
@@ -357,9 +404,15 @@ void moveBodies() {
 		#pragma omp task
 		{
 			int interval=1;
+			if(!bodyArray[i].m){
+				deltav=(struct Vector) {0,0};
+				deltap=(struct Vector) {0,0};
+			}
+			else{
 			deltav = (struct Vector) {bodyArray[i].force.x/bodyArray[i].m * interval, bodyArray[i].force.y/bodyArray[i].m * interval};
 			deltap = (struct Vector) {(bodyArray[i].velocity.x + deltav.x/2) * interval,
-					 (bodyArray[i].velocity.y + deltav.y/2) * interval};
+					 (bodyArray[i].velocity.y + deltav.y/2) * interval};				
+			}
 			bodyArray[i].velocity.x += deltav.x;
 			bodyArray[i].velocity.y += deltav.y;
 			bodyArray[i].position.x += deltap.x;

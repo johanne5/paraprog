@@ -5,7 +5,7 @@ ifdef DEBUG
 CFLAGS += -ggdb -DDEBUG
 endif
 LINK = -lm -lgomp
-PROGRAM_NAME = barnes_par
+PROGRAM_NAME = barnes_par2
 
 #files
 DEPS =
